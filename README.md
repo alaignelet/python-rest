@@ -36,10 +36,10 @@ Postman can be used for interacting with HTTP APIs. Run by default on http://127
 
 ### / statistics
 #### GET:
-* stat = 1: total number of files in that folder
-* stat = 2: average number of alphanumeric characters per text file (and standard deviation) in that folder
-* stat = 3: average word length (and standard deviation) in that folder
-* stat = 4: total number of bytes stored in that folder
+* stat = total_number_files: total number of files in that folder
+* stat = average_number_char: average number of alphanumeric characters per text file (and standard deviation) in that folder
+* stat = average_word_length: average word length (and standard deviation) in that folder
+* stat = total_number_bytes: total number of bytes stored in that folder
 
 
 ## Example
@@ -47,7 +47,7 @@ Postman can be used for interacting with HTTP APIs. Run by default on http://127
 GET request:
 
 ```
-127.0.0.1:5000/statistics?path=.&stat=3
+127.0.0.1:5000/statistics?path=.&stat=average_word_length
 ```
 This request results in:
 ```
