@@ -8,12 +8,15 @@ import glob
 app = Flask(__name__)
 
 
+def invalid(path):
+    return  path.startswith('/') or '..' in path
+
 # Create a text file with some contents stored in a given path
 @app.route('/file', methods=['POST'])
 def createfile():
     path = request.form['path']
     name = request.form['name']
-    if '..' in path or '../' in path:
+    if invalid(path)  or invalid(name):
         abort(403)
 
     if os.path.isfile(path):
@@ -30,7 +33,7 @@ def createfile():
 @app.route('/file', methods=['GET'])
 def getfile():
     path = request.args.get('path')
-    if '..' in path:
+    if invalid(path):
         abort(403)
 
     if os.path.isfile(path):
@@ -46,7 +49,7 @@ def getfile():
 def replacefile():
     path = request.form['path_file']
     content = request.form['path_content']
-    if '..' in path or '../' in content:
+    if invalid(path) or invalid(content):
         abort(403)
 
     if os.path.isfile(path) & os.path.isfile(content):
@@ -65,7 +68,7 @@ def replacefile():
 @app.route('/file', methods=["DELETE"])
 def deletefile():
     path = request.form['path']
-    if '..' in path:
+    if invalid(path):
         abort(403)
 
     if os.path.isfile(path):
@@ -79,7 +82,7 @@ def deletefile():
 def statistics():
     path = request.args.get('path')
     stat = request.args.get('stat')
-    if '..' in path:
+    if invalid(path):
         abort(403)
 
     if os.path.isdir(path):
