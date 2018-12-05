@@ -7,16 +7,18 @@ import glob
 
 app = Flask(__name__)
 
+
 # Check valid path
 def invalid(path):
-    return  path.startswith('/') or '..' in path
+    return path.startswith('/') or '..' in path
+
 
 # Create a text file with some contents stored in a given path
 @app.route('/file', methods=['POST'])
 def createfile():
     path = request.form['path']
     name = request.form['name']
-    if invalid(path)  or invalid(name):
+    if invalid(path) or invalid(name):
         abort(403)
 
     if os.path.isfile(path):
