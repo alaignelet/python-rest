@@ -7,7 +7,7 @@ import glob
 
 app = Flask(__name__)
 
-
+# Check valid path
 def invalid(path):
     return  path.startswith('/') or '..' in path
 
